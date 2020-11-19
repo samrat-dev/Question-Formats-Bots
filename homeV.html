@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Question format</title>
+    <link rel="icon" type="image/png" sizes="96x96" href="https://vuejs.org/images/icons/favicon-96x96.png">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        body {
+            background-image: linear-gradient(-90deg, #9C27B0, #FFEB3B);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" id="app">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="styleType">{{labels.ddlFormat}}</label>
+                            <select class="custom-select" v-model="selectedVal.ddlFormat">
+                                <option :value="item.val" v-for="item in options.ddlFormat">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="abcdtype">{{labels.ddlAnswerStyle}}</label>
+                            <select class="custom-select" v-model="selectedVal.ddlAnswerStyle">
+                                <option :value="item.val" v-for="item in options.ddlAnswerStyle">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="abcdtype">{{labels.ddlStepsData}}</label>
+                            <select class="custom-select" v-model="selectedVal.ddlStepsData" @change="ddlStepsDataCopy">
+                                <option :value="item.val" v-for="item in options.ddlStepsData">{{item.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" v-model="selectedVal.ckWithoutQno"
+                                    id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    {{labels.ckWithoutQno}}
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" v-model="selectedVal.ckWithCorrectAns"
+                                    id="defaultCheck2">
+                                <label class="form-check-label" for="defaultCheck2">
+                                    {{labels.ckWithCorrectAns}}
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" v-model="selectedVal.ckJoinWithTilde"
+                                    id="defaultCheck3">
+                                <label class="form-check-label" for="defaultCheck3">
+                                    {{labels.ckJoinWithTilde}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">{{labels.pasteContent}}</label>
+                            <textarea class="form-control" rows="12" v-model="pasteContent" ref="paste_area"
+                                @mouseup="setPasteArea($event)"></textarea>
+                            <button type="button" class="btn btn-outline-primary mt-2" @click="formatting">
+                                {{labels.btnFormatting}}
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" v-model="selectedVal.ckAutoClear" @change="ckAutoClearChange"
+                                    id="defaultCheck4">
+                                <label class="form-check-label" for="defaultCheck4">
+                                    {{labels.ckAutoClear}}
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox5"
+                                    v-model="selectedVal.ckCopyToClipboard">
+                                <label class="form-check-label" for="inlineCheckbox5">
+                                    {{labels.ckCopyToClipboard}}
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox6"
+                                    v-model="selectedVal.ckConsoleAutoClear">
+                                <label class="form-check-label" for="inlineCheckbox6">
+                                    {{labels.ckConsoleAutoClear}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>
+                            <span v-for="item in userDesc">{{item}}<br /></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scriptV.js"></script>
+</body>

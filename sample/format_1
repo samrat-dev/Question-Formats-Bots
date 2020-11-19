@@ -1,0 +1,104 @@
+1.	Why the clouds are prettier than –
+a.	the ships and boats	b. other clouds	c. the humans		d. the sky
+2.	The clouds look-
+a. ugly		b. pale		c. beautiful	d. dull
+
+1. The lad had wanted to be a –
+(a)doctor  (b) sport man  (c) sailor 	(d) engineer
+3. The lad knew the small of the
+(a)soil      (b)food    (c) flower		(d) sea
+
+----------------------------------Dev Style Format - Full Automatic From Raw -------------------------------------------------------------------------------
+							
+							Ghosts on the Verandah
+
+#MCQ
+1. Anil’s mother was ____ years old.
+a. 31	b. 32	c. 33	d. 34
+2. The spirit of Anil’s ______ visited their family.
+a. grandmother	b. grandfather		c. great grandmother		d. great grandfather
+3. What did Anil’s mother do?
+a.  tell poems		b. tell stories		c. cook		d. sing
+4. Whom did she told them?
+a. author	b. author’s friends	c. author and his friends	d. no body
+5. What was the topic of the stories?
+a. mythology		b.  ghosts	c. history	d. spirits and mischievous ghos
+6. Whom did Anil’s mother advice?
+a. Anil		b. Mulia	c. Kamal	d. Munjia
+7. What did she advise?
+a. not to leave her hair loose after sunset		b. to leave her hair loose after sunset
+c. not to leave her hair loose after sunrise		d. to leave her hair loose after sunrise
+8. Why did she advise so?
+a. Jinns are attracted		b. bad happens	c. people scold		d.  nothing happens
+9. Who were sitting with the author?
+a. Anil and Kamal	b. Munjia and Kamal		c. Anil and  Munjia	d. Anil and . Mulia
+10. Which story did Anil’s mother tell the author and friends about ?
+a. a ghost	b. mischievous ghosts		c. jinn		d. spirits
+11. On whom the story was?
+a. mathematics teacher	b. physics teacher	c. English teacher	d. ghosts
+
+12. What did the teacher tell to do?
+a. fetch food	b. fetch books		c. fetch water		d. fetch  duster
+13. Where was it?
+a. at the end of the classroom		b. at the end of the school	
+c. at the end of the    ground		d.  at the end of the building
+14. What did the boy do?
+a. stayed there		b. fetched book	c. fetched book by going	d. fetched book by stretching hands
+15. Everyone thought him to be-
+a. a ghost	b. mischievous ghosts		c. jinn		d. spirit
+16. Who was Munjia?
+a. jinn		b.  ghosts	c. spirit		d. mischievous ghost
+17. Where did he live?
+a. in a house	b. on a tree	c. on rooftop	d. in lonely peepul tree
+
+18. What did he do When he got annoyed?
+a. rushed out from the tree and upset tongas
+b. rushed out from the tree and upset tongas and cycles
+c. rushed out from the tree and upset bullock-carts and cycles
+d. rushed out from the tree and upset tongas, bullock-carts and cycles
+
+19. What not to do while passing beneath a peepul tree?
+a. laugh	b. cry		c. shout	d. yawn
+20. What is the magical verse to keep away ghosts.
+a. Bhoot, prêt, pisach, dana/ Chhoo mantar, sab chale jana…
+b. Bhoot, prêt, pisach, dana/ Chhoo mantar, sab nikal jana…
+c. Bhoot, prêt, pisach, dana/ Chhoo mantar, sab chale ana…
+b. Bhoot, prêt, pisach, dana/ bhoot mantar, sab nikal jana…
+
+#TrueFalse
+1. Munjia had upset a bus. True
+2. It is lucky to see a snake early in the morning. True
+3. The author checked for snakes before sleeping. True
+4. Anil’s mother told ghost stories after that night. False
+5. Anil’s mother fainted. True
+
+#XXXX a,b,c,d,a,,c
+
+
+
+
+
+#XXXX
+#TrueFalse
+#MCQ
+
+
+  Dev format Steps ::
+step1+step2 > f#dev > step_1_Content,  step_2_Content
+step_1_Content > f#1 > step_1_1_Content,  step_1_2_Content
+step_2_Content >  f#6 > step_2_Content 
+step_1_1_Content > f#2 > step_1_1_Content > go
+(step_2_Content + step_1_2_Content) > f#3 > step_1_2_Content > go
+
+
+
+
+
+
+
+
+
+
+
+
+
