@@ -22,10 +22,10 @@ var app = new Vue({
                 { val: '1', text: 'One' },
                 { val: '2', text: 'Two' },
                 { val: '3', text: 'Three' },
-                { val: '6', text: 'Six' },
                 { val: '4', text: 'Four' },
                 { val: '5', text: 'Five' },
-                { val: 'dev', text: 'Developer' },
+                { val: '6', text: 'Six' },
+                // { val: 'dev', text: 'Developer' },
             ],
             ddlAnswerStyle: [
                 { val: '0', text: '(a)' },
@@ -43,8 +43,8 @@ var app = new Vue({
             ]
         },
         selectedVal: {
-            ddlFormat: 'dev',
-            ddlAnswerStyle: '4',
+            ddlFormat: '1',
+            ddlAnswerStyle: '3',
             ckAutoClear: true,
             ckConsoleAutoClear: true,
             ckCopyToClipboard: true,
@@ -63,19 +63,22 @@ var app = new Vue({
                 { val: '4', regx: /\s*\(*a\)\s*|\s*\(*b\)\s*|\s*\(*c\)\s*|\s*\(*d\)\s*|\s*a[.]\s*|\s*b[.]\s*|\s*c[.]\s*|\s*d[.]\s*|\s*\((ক|খ|গ|ঘ)\)\s*/gi }
             ],
             TFStyle: {
-                removeAllWithoutQuestion: /^\d+[.]|–|true$|false$|\[t\]$|\[f\]$/gi,
-                getAnswer: /true|false|\[t\]|\[f\]/gi
+                removeAllWithoutQuestion: /(^[a-z\d]{1,3}[.–]\s*)|([tf]$)|true$|false$|[(][tf][)]|\[t\]|\[f\]/gi,
+                getAnswer: /([(][tf][)])|true|false|([tf]$)|\[t\]|\[f\]/gi
             }
         },
         pasteContent: "",
         pasteArea: null,
         userDesc: [
+            "------------------------------------------------------------------------------",
             "Format #1 : {q,a,q,a...} change to {q,q,q...},{a,a,a...}",
             "Format #2 : {q,q,q...} change to {q,q,q...} with or without qno.",
             "Format #3 : {XXXX c,b,a,d,a...}, {a,a,a...} change to {a~b~c~d, #correct_answer}",
-            "Format #4 : [{1. Munjia had upset a bus. True},...] change to [{Munjia had upset a bus.\\t\\t true~false\\t true},...]",
-            "Format #5 : {q,q,q...} change to {q\\t\\tসত্য~মিথ্যা,q...} with or without qno.",
-            "Format #6 : {a\\n a\\n ...} change to {a,a}",
+            "Format #4 : true-false of format-2.txt => #question \t\t true~false \t true, ...]",
+            "-------------------------------------------------------------------------------",
+            "Format #5 : format-2 txt",
+            "Format #6 : blank ",
+            "-------------------------------------------------------------------------------",
             "Format #developer: for details, read the \'format_dev\' function and \'format_1\' text file",
         ],
         resolve: null,
@@ -141,7 +144,7 @@ var app = new Vue({
                     break;
             }
         },
-        // ------------------------Format Methods-----------------------
+        //#region  ------------------------Format Methods 01 to 06 -----------------------
         format_1() {
             console.log('#format 1 ...');
             var elm = this.removeDust(this.pasteContent);
@@ -296,33 +299,76 @@ var app = new Vue({
             });
         },
         format_5() {
-            console.log('#format 5 ...');
+            console.log('#format 5 ...........');
             var elm = this.removeDust(this.pasteContent);
             var elm_filter = {
-                q: []
+                q: [],
+                a: []
             };
-            var set_opts = 'সত্য~মিথ্যা';
+            var Ans = [];
+            var isAnswerHave_abcd = true;
+            var isAnswer;
+            var isCorrectAns;
+            var correct_Ans = '';
+
             var elm_row = elm.trim().split('\n');
             elm_row.forEach((_elm, i) => {
                 _elm = _elm.trim();
-                if (this.selectedVal.ckWithoutQno) {
-                    _elm = _elm.replace(this.regxStyle.questionStyle, "");
+                if (isAnswerHave_abcd) {
+                    isAnswer = /(^[abcd][.)])/ig.test(_elm);
+                } else {
+                    isAnswer = /(^[i]{1,3}[.)])|(^iv[.)])/ig.test(_elm);
                 }
-                elm_filter.q.push(_elm + '\t\t' + set_opts);
+
+                if (!isAnswer) {  // loop for question
+                    _elm = _elm.replace(/^[a-z\d]{1,3}\./ig, "");
+                    elm_filter.q.push(_elm.trim());
+                    if (Ans.length > 0) {
+                        var ansMerge = Ans.join('~');
+                        Ans = [];
+                        if (correct_Ans != '') {
+                            ansMerge += '\t' + correct_Ans;
+                            correct_Ans = '';
+                        }
+                        elm_filter.a.push(ansMerge);
+                    }
+                } else {
+                    _elm = _elm.replace(/^[a-z]{1,3}[.)]|(^[i]{1,3}[.])|(^iv[.])/ig, "");
+                    isCorrectAns = /[√#]/ig.test(_elm);
+                    _elm = _elm.replace(/[√#]/ig, "");
+                    if (isCorrectAns) {
+                        correct_Ans = _elm.trim();
+                    }
+                    Ans.push(_elm.trim());
+                }
                 if (i == elm_row.length - 1) {
+                    if (Ans.length > 0) {
+                        var ansMerge = Ans.join('~');
+                        Ans = [];
+                        if (correct_Ans != '') {
+                            ansMerge += '\t' + correct_Ans;
+                            correct_Ans = '';
+                        }
+                        elm_filter.a.push(ansMerge);
+                    }
                     elm_filter.q = this.removeNullIndex(elm_filter.q);
+                    elm_filter.a = this.removeNullIndex(elm_filter.a);
                     elm = elm_filter.q.join('\n');
+                    elm += '\n\n' + elm_filter.a.join('\n');
                     this.copyTo(elm);
+                    // console.log(elm_filter)
                 }
             });
         },
         format_6() {
             console.log('#format 6 ...');
-            var elm = this.removeDust(this.pasteContent);
-            var elm_row = elm.trim().split('\n');
-            elm = "#XXXX " + elm_row.join(',') + "\n";
+            var elm = `blank function \nYou can add anything...`;
             this.copyTo(elm);
+
         },
+        //#endregion
+
+        //#region Dev Format
         format_dev() {
             console.log('#format_dev ...');
             this.logData.copyLog = false;
@@ -366,7 +412,9 @@ var app = new Vue({
             };
             this.format_1();
         },
-        // ------------------------Format Helper Methods-------------
+        //#endregion
+
+        //#region ------------------------Format Helper Methods-------------
         setPasteArea(e) {
             this.pasteArea = e.target;
         },
@@ -425,7 +473,9 @@ var app = new Vue({
             this.resolveData.step_1_2_Content = null;
             this.resolve = null;
         },
-        // ------------------------Dev Format Helper Methods-------------
+        //#endregion
+
+        //#region ------------------------Dev Format Helper Methods-------------
         dev_getStepsData() {
             var elm = this.pasteContent.trim();
             var steps = this.resolveData;
@@ -454,5 +504,6 @@ var app = new Vue({
             if (this.logData.stepLog)
                 console.log(data);
         },
+        //#endregion
     }
 })
